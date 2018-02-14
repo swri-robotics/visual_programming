@@ -1,0 +1,12 @@
+int32 ADD=1
+int32 DELETE=2
+int32 CONTINUOUS_START=3
+int32 CONTINUOUS_CANCEL=4
+int32 CONTINUOUS_STOP=5
+int32 CLEAR_ALL=6
+int32 CHANGE_SNAP_MODE=7
+int32 operation # operation code
+
+---
+string msg
+bool success

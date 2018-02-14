@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="use_gui" default="false" />
+  <arg name="moveit_debug" default="false"/>
+  <arg name="sim_robot" default="true"/>
+  <arg name="use_tool_pose_from_joint_states" default="false"/>
+  <arg name="path_data_dir" default="$(env HOME)/vpr_path_data"/>
+
+  <!--  Path Manager Node -->
+  <node name="path_manager" pkg="vpr_tracking" type="path_data_manager_node" output="screen">
+    <param name="move_group" value="manipulator"/>
+    <param name="home_pose_name" value="HOME"/>
+    <param name="trajectory_frame" value="world"/>
+    min_eef_step_translation
+    <param name="robot_pose_eef_step_translation" value="0.005"/>
+    <param name="robot_pose_eef_step_rotation" value="0.032"/>
+    <param name="use_tool_pose_from_joint_states" value="$(arg use_tool_pose_from_joint_states)"/>
+    <param name="path_data_dir" value="$(arg path_data_dir)"/>
+    <rosparam param="snap" command="load" file="$(find vpr_tracking)/config/snap_features.yaml"/>
+
+  </node>
+
+  <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
+  <include file="$(find vpr_moveit_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
+  <include file="$(find vpr_moveit_config)/launch/moveit_planning_execution.launch">
+    <arg name="sim" value="$(arg sim_robot)"/>
+  </include>
+
+  <!--  RViz  -->
+  <node name="rviz" type="rviz" pkg="rviz" output="log" required="True" args="-d $(find vpr_tracking)/rviz/tracking.rviz"/>
+
+</launch>

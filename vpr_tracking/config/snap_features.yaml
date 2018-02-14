@@ -1,0 +1,50 @@
+frame: teach_box
+features:
+  - type: Point
+    name: p1
+    points:
+      - [0.0, 0.0, 0.0]
+    dist: 0.05
+  - type: Point
+    name: p2
+    points:
+      - [0.5207, 0.0, 0.0]
+    dist: 0.05
+  - type: Point
+    name: p3
+    points:
+      - [0.0, 0.5207, 0.2794]
+    dist: 0.05
+  - type: Line
+    name: l0
+    points:
+      - [0.0, 0.0, 0.0]
+      - [0.0, 0.5207, 0.0]
+    dist: 0.05
+  - type: Line
+    name: l1
+    points:
+      - [0.0762, 0.5207, 0.3556]
+      - [0.0, 0.5207, 0.2794]
+    dist: 0.05
+  - type: Line
+    name: l2
+    points:
+      - [0.0, 0.5207, 0.2794]
+      - [0.0, 0.5207, 0.0]
+    dist: 0.05
+  - type: ConvexFace
+    name: f1
+    points:
+      - [0.0, 0.0, 0.0]
+      - [0.5207, 0.0, 0.0]
+      - [0.5207, 0.5207, 0.0]
+      - [0.0, 0.5207, 0.0]
+    dist: 0.20
+  - type: ConvexFace
+    name: f2
+    points:
+      - [0.5207, 0.5207, 0.0]
+      - [0.5207, 0.0127, 0.0]
+      - [0.5207, 0.5207, 0.3556]
+    dist: 0.05

@@ -1,0 +1,15 @@
+# planning data
+string group_name
+moveit_msgs/RobotState start_state
+vpr_msgs/TrajectorySegment[] trajectory_segments
+
+# planning config
+float64 jump_threshold_revolute     # max distance jump allowed between consecutive points for revolute joints (radians)
+float64 jump_threshold_prismatic    # max distance jump allowed between consecutive points for prismatic joints (meters)
+float64 max_eef_step_translation    # max end-effector linear step between consecutive points (meters)
+float64 max_eef_step_rotation       # max end-effector rotation step between consecutive points (radians)
+float64 max_vel_scaling_factor      # Use for time parameterization, range from 0.0 ... 1.0 
+float64 max_acc_scaling_factor      # Use for time parameterization, range from 0.0 ... 1.0 
+---
+moveit_msgs/DisplayTrajectory robot_trajectories
+bool success

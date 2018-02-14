@@ -1,0 +1,21 @@
+<launch>
+  <!-- This launch file is just meant to visualize the full workcell and shouldn't be included in other launch
+    files since it broadcast an arbitrary transform for the link(s) with floating joints -->
+
+  <arg name="model" default="$(find vpr_support)/urdf/workcell.urdf.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find vpr_support)/rviz/urdf.rviz" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    <param name="use_gui" value="$(arg gui)"/>
+  </node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+  
+  <node name="teach_box_tf_publisher" type="static_transform_publisher" pkg="tf2_ros" 
+    args="0.0 0.0 0.1651 1.5707963267948966 0.0 0.0 table teach_box"/>
+
+</launch>

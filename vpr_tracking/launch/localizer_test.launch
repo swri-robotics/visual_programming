@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <!--  localizer -->
+  <node name="object_localizer" type="object_localizer.py" pkg="vpr_tracking" output="screen">
+    <rosparam command="load" file="$(find vpr_tracking)/config/localization_info.yaml"/>
+    <remap from="markers" to="/aruco_marker_publisher/markers"/>
+  </node>
+</launch>

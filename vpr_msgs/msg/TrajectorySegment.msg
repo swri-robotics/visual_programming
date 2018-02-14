@@ -1,0 +1,1 @@
+vpr_msgs/TrajectoryWaypoint[] waypoints

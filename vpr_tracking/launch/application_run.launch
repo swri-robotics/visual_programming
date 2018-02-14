@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <arg name="use_joystick" default="True"/>
+  <arg name="joystick_dev" default="/dev/input/js0" if="$(arg use_joystick)"/>
+
+  <group unless="$(arg use_joystick)">
+    <node name="keyboard_publisher" type="keyboard_publisher.py" pkg="vpr_tracking"/>
+    <node name="key_action_mapper" type="key_action_mapper.py" pkg="vpr_tracking"/>
+  </group>
+
+  <group if="$(arg use_joystick)">
+    <node name="joy_node" type="joy_node" pkg="joy" args="$(arg joystick_dev)"/>
+    <node name="joystick_action_mapper" type="joystick_action_mapper.py" pkg="vpr_tracking" output="screen">
+      <rosparam command="load" file="$(find vpr_tracking)/config/input_states_info.yaml"/>
+      <rosparam command="load" file="$(find vpr_tracking)/config/joystick_cfg_fortune_tech_vr30.yaml"/>
+    </node>
+  </group>`                                                                                                                                                                                                                                                                                                                                                                             ``
+
+
+  <node name="instructions_frame_broadcaster" type="static_transform_publisher" pkg="tf"
+  	args="0.5 0.5 0.8 0.0 0.0 0.0 table instructions_frame 100" output="screen"/>
+</launch>

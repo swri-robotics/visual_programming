@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>vpr_support</name>
+  <version>0.0.0</version>
+  <description>The vpr_support package</description>
+  <maintainer email="josh.langsfeld@swri.org">Josh Langsfeld</maintainer>
+  <license>Apache2</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

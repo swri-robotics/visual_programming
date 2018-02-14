@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<robot name="flat_sheet" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="aruco_marker.xacro"/>
+
+  <material name="gray">
+    <color rgba="0.8 0.8 0.8 1.0"/>
+  </material>
+
+  <link name="tool_frame"/>
+
+  <link name="row1"/>
+  <joint name="row1_joint" type="fixed">
+    <origin xyz="-0.045 0.045 0" rpy="0 0 0"/>
+    <parent link="tool_frame"/>
+    <child link="row1"/>
+  </joint>
+
+  <xacro:aruco_marker id="120" marker_size="0.03" parent="row1">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="121" marker_size="0.03" parent="row1">
+    <origin xyz="0.03 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="122" marker_size="0.03" parent="row1">
+    <origin xyz="0.06 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="123" marker_size="0.03" parent="row1">
+    <origin xyz="0.09 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <link name="row2"/>
+  <joint name="row2_joint" type="fixed">
+    <origin xyz="-0.045 0.015 0" rpy="0 0 0"/>
+    <parent link="tool_frame"/>
+    <child link="row2"/>
+  </joint>
+
+  <xacro:aruco_marker id="130" marker_size="0.03" parent="row2">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="131" marker_size="0.03" parent="row2">
+    <origin xyz="0.03 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="132" marker_size="0.03" parent="row2">
+    <origin xyz="0.06 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="133" marker_size="0.03" parent="row2">
+    <origin xyz="0.09 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <link name="row3"/>
+  <joint name="row3_joint" type="fixed">
+    <origin xyz="-0.045 -0.015 0" rpy="0 0 0"/>
+    <parent link="tool_frame"/>
+    <child link="row3"/>
+  </joint>
+
+  <xacro:aruco_marker id="140" marker_size="0.03" parent="row3">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="141" marker_size="0.03" parent="row3">
+    <origin xyz="0.03 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="142" marker_size="0.03" parent="row3">
+    <origin xyz="0.06 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="143" marker_size="0.03" parent="row3">
+    <origin xyz="0.09 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <link name="row4"/>
+  <joint name="row4_joint" type="fixed">
+    <origin xyz="-0.045 -0.045 0" rpy="0 0 0"/>
+    <parent link="tool_frame"/>
+    <child link="row4"/>
+  </joint>
+
+  <xacro:aruco_marker id="150" marker_size="0.03" parent="row4">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="151" marker_size="0.03" parent="row4">
+    <origin xyz="0.03 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="152" marker_size="0.03" parent="row4">
+    <origin xyz="0.06 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="153" marker_size="0.03" parent="row4">
+    <origin xyz="0.09 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+</robot>

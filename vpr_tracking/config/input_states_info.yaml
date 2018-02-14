@@ -1,0 +1,30 @@
+states:
+    - id: Tracking
+      label: Tool Tracking
+      actions:
+      - {id: MOVE_HOME, label: "Move Home", order: 1}
+      - {id: ADD_WAYPOINT, label: "Add Waypoint", order: 2}
+      - {id: ADD_SEGMENT, label: "Add Segment", order: 3}
+      - {id: DELETE_WAYPOINT, label: "Delete Waypoint", order: 4}
+      - {id: CHANGE_SNAP_MODE, label: "Change Snap Mode", order: 5}
+      - {id: CLEAR_WAYPOINTS, label: "Clear Waypoints", order: 6}
+      - {id: SHOW_PREVIEW, label: "Preview Path", order: 7}
+    - id: ContinuousEdit
+      label: Segment Creation
+      actions:
+      - {id: SAVE_SEGMENT, label: "Save Segment", order: 1}
+      - {id: CANCEL_SEGMENT, label: "Cancel Segment", order: 2}
+    - id: Preview
+      label: Path Preview
+      actions:
+      - {id: SHOW_PREVIEW, label: "Show Preview", order: 1}
+      - {id: EXECUTE, label: "Execute Path", order: 2}
+      - {id: EXIT_PREVIEW, label: "Return", order: 3}
+    - id: Execute
+      label: Path Execution
+      actions: []
+    - id: Faulted
+      label: Error
+      actions:
+      - {id: RESET, label: "Reset Application", order: 2}
+      - {id: FAILURE_CORRECTED, label: "Acknowledge Error Resolved", order: 1}

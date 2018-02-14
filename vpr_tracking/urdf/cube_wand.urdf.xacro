@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot name="cube_wand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="aruco_marker.xacro"/>
+  
+  <property name="pointer_length" value="0.130175"/>
+  <property name="box_side_length" value="0.0381"/>
+  <property name="box_center_z" value="${-pointer_length - 0.5*box_side_length}"/>
+  <property name="box_facet_thickness" value="0.005"/>
+
+  <material name="gray">
+    <color rgba="0.8 0.8 0.8 1.0"/>
+  </material>
+
+  <link name="tool_frame"/>
+
+  <xacro:aruco_marker id="51" marker_size="${box_side_length}" parent="tool_frame">
+    <origin xyz="${0.5*box_side_length} 0.0 ${box_center_z}" rpy="-1.5708 0.0 -1.5708"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="52" marker_size="${box_side_length}" parent="tool_frame">
+    <origin xyz="0.0 ${0.5*box_side_length} ${box_center_z}" rpy="-1.5708 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="53" marker_size="${box_side_length}" parent="tool_frame">
+    <origin xyz="${-0.5*box_side_length} 0.0 ${box_center_z}" rpy="-1.5708 0.0 1.5708"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="54" marker_size="${box_side_length}" parent="tool_frame">
+    <origin xyz="0.0 ${-0.5*box_side_length} ${box_center_z}" rpy="-1.5708 0.0 3.14159"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="55" marker_size="${box_side_length}" parent="tool_frame">
+    <origin xyz="0.0 0.0 ${-pointer_length - box_side_length + 0.5*box_facet_thickness}" rpy="3.141592 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+  
+  <link name="pointer">
+    <visual>
+	    <geometry>
+	      <cylinder radius="0.005" length="${pointer_length}"/>
+	    </geometry>
+	    <material name="gray"/>
+  	</visual>
+  </link>
+  
+  <joint name="tool_frame_to_pointer" type="fixed">
+  	<origin xyz="0 0 ${-0.5 * pointer_length}"/>
+  	<parent link="tool_frame"/>
+  	<child link="pointer"/>
+  </joint>
+</robot>

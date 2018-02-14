@@ -1,0 +1,6 @@
+button_mappings:
+    trigger: {index: 1, value: 1}
+    axis_up: {index: 7, value: 1}
+    axis_down: {index: 7, value: -1}
+    axis_left: {index: 6, value: -1}
+    axis_right: {index: 6, value: 1}

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="sim_tracking" default="false"/>
+  <arg name="use_camera" default="true"/>
+  <arg name="use_detection" default="true"/>
+  <arg name="use_cube_wand" default="false"/>
+
+  <!--  Selecting Dodecahedron Wand Type -->
+  <arg name="aruco_marker_size" default="0.0185" unless="$(arg use_cube_wand)"/>
+  <param name="tool_description" command="xacro '$(find vpr_tracking)/urdf/dodecahedron_wand.urdf.xacro'"
+    unless="$(arg use_cube_wand)"/>
+
+  <!--  or Cube Wand Type -->
+  <arg name="aruco_marker_size" default="0.0301625" if="$(arg use_cube_wand)"/>
+  <param name="tool_description" command="xacro '$(find vpr_tracking)/urdf/cube_wand.urdf.xacro'"
+    if="$(arg use_cube_wand)"/>
+
+  <node name="tracking_tool_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <remap from="robot_description" to="tool_description"/>
+  </node>
+
+  <group unless="$(arg sim_tracking)">
+    <!-- sensor -->
+    <include file="$(find vpr_support)/launch/realsense_bringup.launch"
+          if="$(arg use_camera)">
+      <arg name="enable_pointcloud" value="false"/>"
+    </include>
+    <node pkg="tf" type="static_transform_publisher" name="camera_optical_frame_publisher"
+          args="0 0 0 0 0 0 camera_link camera_color_optical_frame 100"
+          unless="$(arg use_camera)"/>
+
+    <!-- marker detection -->
+    <node pkg="aruco_ros" type="marker_publisher" name="aruco_marker_publisher"
+          if="$(arg use_detection)" output="screen">
+        <remap from="image" to="camera/color/image_raw" />
+        <remap from="camera_info" to="camera/color/camera_info" />
+        <param name="use_camera_info"    value="true"/>
+        <param name="image_is_rectified" value="true"/>
+        <param name="marker_size"        value="$(arg aruco_marker_size)"/>
+        <!-- frame in which the marker pose will be refered -->
+        <param name="reference_frame"    value="camera_color_optical_frame"/>
+        <param name="camera_frame"       value="camera_color_optical_frame"/>
+    </node>
+
+    <!-- tool pose estimation -->
+    <node pkg="vpr_tracking" type="tool_tracking_node" name="tool_tracker"
+        output="screen">
+     <remap from="markers" to="aruco_marker_publisher/markers" />
+     <param name="averaging_buffer_size" value="5"/>
+     <param name="weight_coeff" value="0.4"/>
+    </node>
+
+  </group>
+
+  <group if="$(arg sim_tracking)">
+    <!-- fake pose tracking node -->
+    <node name="tool_pose_publisher_gui" type="tf_publisher_gui.py" pkg="vpr_tracking">
+      <param name="rate" value="20.0"/>
+      <param name="parent_frame" value="table"/>
+      <param name="child_frame" value="tool_frame"/>
+      <rosparam param="init_position">[0.050, -0.310, 0.265]</rosparam>
+      <rosparam param="init_rotation">[3.142, 0.038, 3.142]</rosparam>
+      <remap from="pose_st" to="tool_pose"/>
+    </node>
+  </group>
+</launch>

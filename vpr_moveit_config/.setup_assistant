@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: vpr_support
+    relative_path: urdf/workcell.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/workcell.srdf
+  CONFIG:
+    author_name: Josh Langsfeld
+    author_email: josh.langsfeld@swri.org
+    generated_timestamp: 1534183974

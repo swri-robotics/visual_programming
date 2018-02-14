@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>vpr_trajectory</name>
+  <version>0.0.1</version>
+  
+  <description>Provides robot trajectory related capabilities</description>
+  <maintainer email="jnicho@swri.org">Jorge Nicho</maintainer>
+  <license>TODO</license>
+  <author email="jnicho@swri.org">Jorge Nicho</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>eigen_conversions</depend>
+  <depend>moveit_core</depend>
+  <depend>vpr_msgs</depend>
+  <depend>tf2</depend>  
+  <depend>moveit_ros_planning_interface</depend>
+
+</package>

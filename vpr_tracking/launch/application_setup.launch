@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="sim_tracking" default="true"/>
+  <arg name="sim_robot" default="true"/>
+  <arg name="use_cube_wand" default="false"/>
+  <arg name="use_tool_pose_from_joint_states" default="false"/>
+  <arg name="path_data_dir" default="$(env HOME)/vpr_path_data"/>
+
+  <include file="$(find vpr_tracking)/launch/path_manager.launch">
+    <arg name="sim_robot" value="$(arg sim_robot)"/>
+    <arg name="use_tool_pose_from_joint_states" value="$(arg use_tool_pose_from_joint_states)"/>
+    <arg name="path_data_dir" value="$(arg path_data_dir)"/>
+  </include>
+
+  <!-- markers to tool pose -->
+  <include file="$(find vpr_tracking)/launch/tool_tracker.launch">
+    <arg name="sim_tracking" value="$(arg sim_tracking)"/>
+    <arg name="use_cube_wand" value="$(arg use_cube_wand)"/>
+  </include>
+
+  <include file="$(find vpr_tracking)/launch/calibration.launch"/>
+
+  <node name="trajectory_planner" type="trajectory_planner_node" pkg="vpr_trajectory" output="screen"/>
+
+  <!--  localizer -->
+  <node name="object_localizer" type="object_localizer.py" pkg="vpr_tracking">
+    <rosparam command="load" file="$(find vpr_tracking)/config/localization_info.yaml"/>
+    <remap from="markers" to="/aruco_marker_publisher/markers"/>
+  </node>
+
+  <!-- main application -->
+  <node name="vpr_main" type="vpr_executive" pkg="vpr_core"/>
+</launch>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<robot name="dodec_wand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="aruco_marker.xacro"/>
+    <property name="dodecahedron_length" value="0.1476375"/>
+
+  <material name="gray">
+    <color rgba="0.8 0.8 0.8 1.0"/>
+  </material>
+
+  <link name="tool_frame"/>
+
+  <xacro:aruco_marker id="120" parent="tool_frame">
+    <origin xyz="0.0229 0.00747 ${-dodecahedron_length - 0.01374}" rpy="-1.107062 0 -1.256637"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="121" parent="tool_frame">
+    <origin xyz="0.00016 0.02428 ${-dodecahedron_length - 0.01413}" rpy="-1.107062 0.0 0.0"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="122" parent="tool_frame">
+    <origin xyz="-0.02299 0.00773 ${-dodecahedron_length - 0.01406}" rpy="-1.107062 0 1.256637"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="123" parent="tool_frame">
+    <origin xyz="-0.01416 -0.01976 ${-dodecahedron_length - 0.01417}" rpy="-1.107062 0 2.513274"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="130" parent="tool_frame">
+    <origin xyz="0.01426 -0.01972 ${-dodecahedron_length - 0.01422}" rpy="-1.107062 0.0 -2.513274"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="131" parent="tool_frame">
+    <origin xyz="0.02296 -0.00742 ${-dodecahedron_length - 0.04249}" rpy="-2.03453031 0 -1.780236"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="132" parent="tool_frame">
+    <origin xyz="0.01398 0.01988 ${-dodecahedron_length - 0.04215}" rpy="-2.03453031 0 -0.523599"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="133" parent="tool_frame">
+    <origin xyz="-0.01433 0.01959 ${-dodecahedron_length - 0.0422}" rpy="-2.03453031 0 0.523599"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="140" parent="tool_frame">
+    <origin xyz="-0.02309 -0.00777 ${-dodecahedron_length - 0.04202}" rpy="-2.034182 0 ${pi-1.256637}"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="141" parent="tool_frame">
+    <origin xyz="0.00003 -0.0243 ${-dodecahedron_length - 0.04214}" rpy="-2.03453031 0 3.141593"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <xacro:aruco_marker id="142" parent="tool_frame">
+    <origin xyz="0 -0.002 ${-dodecahedron_length - 0.05622}" rpy="0.0 ${pi} ${4*pi/5}"/>
+    <material name="gray"/>
+  </xacro:aruco_marker>
+
+  <!-- Wand Geometry -->
+  <link name="dodecahedron">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vpr_support/meshes/DodecahedronWithRod.STL"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vpr_support/meshes/DodecahedronWithRod.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="tool_frame_to_dodecahedron" type="fixed">
+     <origin xyz="0 0 0"/>
+     <parent link="tool_frame"/>
+     <child link="dodecahedron"/>
+  </joint>
+
+</robot>

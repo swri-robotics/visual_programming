@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot name="aruco_marker" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="aruco_marker" params="id parent marker_size:=0.0254 marker_thickness:=0.0005 *origin *material">
+    <link name="aruco_${id}">
+      <visual>
+        <origin xyz="0.0 0.0 ${-0.5 * marker_thickness}"/>
+        <geometry>
+          <box size="${marker_size} ${marker_size} ${marker_thickness}"/>
+        </geometry>
+        <xacro:insert_block name="material"/>
+      </visual>
+    </link>
+
+    <joint name="aruco_${id}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="aruco_${id}"/>
+    </joint>
+  </xacro:macro>
+</robot>
