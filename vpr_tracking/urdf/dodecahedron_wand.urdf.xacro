@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="dodec_wand" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:include filename="aruco_marker.xacro"/>
-    <property name="dodecahedron_length" value="0.1476375"/>
+    <xacro:property name="dodecahedron_length" value="0.1476375"/>
 
   <material name="gray">
     <color rgba="0.8 0.8 0.8 1.0"/>

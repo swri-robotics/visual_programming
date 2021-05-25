@@ -96,6 +96,7 @@ target_link_libraries(path_data_manager_node
   ${YAML_CPP_LIBRARIES}
 )
 
+add_dependencies(test_tool_tracker ${PROJECT_NAME}_gencfg)
 target_link_libraries(test_tool_tracker
   ${catkin_LIBRARIES}
   ${CERES_LIBRARIES}

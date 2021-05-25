@@ -1030,7 +1030,7 @@ moveit_msgs::MoveItErrorCodes PathDataManager::computeIK(const geometry_msgs::Po
   ik_req.group_name = move_group_name_;
   ik_req.avoid_collisions = true;
   ik_req.timeout = ros::Duration(IK_TIMEOUT);
-  ik_req.attempts = IK_ATTEMPTS;
+  //ik_req.attempts = IK_ATTEMPTS;
   ik_req.pose_stamped = pose;
   ik_req.robot_state = seed;
 
