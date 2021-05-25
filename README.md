@@ -1,19 +1,15 @@
 # 10.R8803
 Visual Robot Programming Application
 
-### Issues
-- Tracking is currently disabled since the aruco library requires building OpenCV3.4 from source to build in noetic. See [issue](https://github.com/pal-robotics/aruco_ros/issues/89)
-
 ### Setup
 The following software is needed to build and run the application:
 - wstool
 - rosdep
-- pip3
+- pip2
 
 #### Real Hardware Only
 ##### Install the Intel Realsense SDK 2.0
 - Follow the instructions for [installing the Realsense SDK only](https://github.com/intel-ros/realsense)
-- Install OpenCV3
 
 #### Catkin Workspace Setup
 - Use `wstool` to download all the required repositories
@@ -26,7 +22,7 @@ The following software is needed to build and run the application:
 	```
 - Install python dependencies, from the workspace top level directory run the following
 	```
-	pip3 install -r src/visual_programming/python_dependencies.txt
+	pip2 install -r src/visual_programming/python_dependencies.txt
 	```
 - (Real Hardware Only)
 	```

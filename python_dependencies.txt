@@ -1,4 +1,3 @@
 bitarray
 pyyaml
 wxPython
-python-is-python3
