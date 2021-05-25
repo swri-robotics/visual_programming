@@ -130,7 +130,8 @@ class JoystickManager(object):
         self.states_dict_ = parseStatesConfigParam(param)
 
         # selecting state
-        state_id = self.states_dict_.items()[0][1].id
+        kv_list = list(self.states_dict_.items())
+        state_id = kv_list[0][1].id
         self.selectState(state_id)
 
         param = rospy.get_param('~' + BUTTON_MAPPINGS_PARAM)

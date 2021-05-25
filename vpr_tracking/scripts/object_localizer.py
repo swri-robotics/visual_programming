@@ -1,7 +1,11 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python
 from __future__ import print_function
 import sys
 import threading
+
+import aruco_msgs.msg
+import geometry_msgs.msg
+import std_srvs.srv
 
 import numpy as np
 import rospy
@@ -10,9 +14,6 @@ import tf_conversions
 import tf2_ros
 import tf2_geometry_msgs
 
-import aruco_msgs.msg
-import geometry_msgs.msg
-import std_srvs.srv
 
 PUBLISH_TRANSFORM_PERIOD = 0.1 # seconds
 WAIT_SERVICE_PERIOD = 10.0 # seconds

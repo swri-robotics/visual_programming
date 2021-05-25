@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # based on joint_state_publisher by David Lu!!
 
@@ -89,7 +89,7 @@ class TfPublisherGui(wx.Frame):
             if element['min'] == element['max']:
                 continue
 
-            row = wx.GridSizer(1,2)
+            row = wx.GridSizer(1,2, 0, 0)
             label = wx.StaticText(panel, -1, name)
             label.SetFont(font)
             row.Add(label, 1, wx.ALIGN_CENTER_VERTICAL)
