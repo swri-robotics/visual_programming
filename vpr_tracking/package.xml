@@ -20,6 +20,7 @@
   <depend>dynamic_reconfigure</depend>
   <depend>sensor_msgs</depend>
   <depend>jsk_rviz_plugins</depend>
+  <depend>libceres-dev</depend>
   <exec_depend>rospy</exec_depend>
   <export>
   </export>
