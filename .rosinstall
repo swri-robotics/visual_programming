@@ -1,3 +1,3 @@
-- git: {local-name: aruco_ros, uri: "https://github.com/jrgnicho/aruco_ros.git", version: aruco-3.0.4}
+- git: {local-name: aruco_ros, uri: "https://github.com/pal-robotics/aruco_ros.git", version: 52e5cc7}
 - git: {local-name: iiwa_stack, uri: "https://github.com/IFL-CAMP/iiwa_stack.git", version: master}
 - git: {local-name: joystick_drivers, uri: "https://github.com/swri-robotics/joystick_drivers.git", version: kinetic-devel}
