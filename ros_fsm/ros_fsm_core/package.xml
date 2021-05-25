@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ros_fsm_core</name>
+  <version>0.0.0</version>
+  <description>The ros_fsm_core package</description>  
+  <license>TODO</license>
+  <maintainer email="jrgnichodevel@gmail.com">Jorge Nicho</maintainer>
+  <author email="jrgnichodevel@gmail.com">Jorge Nicho</author>  
+  
+  <buildtool_depend>catkin</buildtool_depend>  
+  <depend>roscpp</depend>
+  
+</package>
