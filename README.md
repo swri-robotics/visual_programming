@@ -1,37 +1,55 @@
 # 10.R8803
-Visual Robot Programming IR&amp;D
+Visual Robot Programming Application
 
-### Requirements
+### Issues
+- Tracking is currently disabled since the aruco library requires building OpenCV3.4 from source to build in noetic. See [issue](https://github.com/pal-robotics/aruco_ros/issues/89)
+
+### Setup
+The following software is needed to build and run the application:
+- wstool
+- rosdep
+- pip3
+
+#### Real Hardware Only
 ##### Install the Intel Realsense SDK 2.0
 - Follow the instructions for [installing the Realsense SDK only](https://github.com/intel-ros/realsense)
+- Install OpenCV3
 
-##### Catkin Workspace Setup
+#### Catkin Workspace Setup
 - Use `wstool` to download all the required repositories
+	```
+	wstool init src src/visual_programming/.rosinstall
+	```
 - Use `rosdep` from the workspace top level directory to install all required debians
 	```
 	rosdep install --from-path src --ignore-src
 	```
 - Install python dependencies, from the workspace top level directory run the following
 	```
-	pip2.7 install -r src/10.R8803/requirements.txt 
+	pip3 install -r src/visual_programming/python_dependencies.txt
 	```
+- (Real Hardware Only)
+	```
+	wstool merge -t src src/visual_programming/.rosinstall_hardware
+	```
+	> Installs realsense ROS driver
+	
 ___
-#####	Joystick Device Setup
-- This demo uses a Fortune Tech Wireless VR30 gamepad in combination with a bluetooth receiver.
-- The joystick shows up as a USB device
-- To connect go into the bluetooth menu and pair it to the **Fortune Tech Wireless** device
+####	Joystick Device Details
+- This demo uses a Fortune Tech Wireless VR30 gamepad in combination with a bluetooth receiver. However any other USB joystick should work
+- Fortune Tech Wireless VR30 gamepad only:
+	- To connect go into the bluetooth menu and pair it to the **Fortune Tech Wireless** device
 
 ---
-##### Joystick Driver Setup
+#### Joystick Device Test
 
-
-- Configure the USB Joystick as described [here](http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick)
 - Install the following package 
     ```
     sudo apt-get install jstest-gtk
     ```
 - Run the `jstest-gtk` application and make sure that you can see your joystick.  In addition to that take note of the joystick's device name (usually */dev/input/js0*)
 - Run the `rosrun joy joy_node _dev:=/dev/input/js0` command and echo the `/joy` topic to make sure that the ros driver publishes the joystick messages on button presses
+- (Optional) More info on configuring a joystick to work with ROS can be found at [here](http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick)
 
 ---
 ### Run Application
@@ -40,15 +58,18 @@ the software will generate a correspoding robot joint path, preview and execute 
 (or simulated) robot. 
 
   *Currently the Planning and execution capabilities are a work in progress.
-- Make sure that the joystick, robot and the camera are connected.
+- If using Real Hardware, make sure that the joystick, robot and the camera are connected.
 - Run the setup launch file:
-  ```
-  roslaunch vpr_tracking application_setup.launch sim_tracking:=False sim_robot:=False
-  ```
-  
-  > Omit the `sim_tracking` and `sim_robot` arguments when running in simulation mode
-
-  > In tracking simulation mode, you'll see the robot in Rviz as well as a gui window with sliders to set the location of the tracked frame
+  - Simulation Mode:
+	  ```
+	  roslaunch vpr_tracking application_setup.launch
+	  ```
+    > In tracking simulation mode, Use the slider widgets in the **TF Publisher** window to set the pose of the wand
+    
+  - Hardware Mode:
+  	  ```
+	  roslaunch vpr_tracking application_setup.launch sim_tracking:=False sim_robot:=False
+	  ```	  
 
 - Start the application:
     Run the application launch file as follows:
