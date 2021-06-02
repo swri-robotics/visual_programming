@@ -128,11 +128,13 @@ bool TrajectoryPlanner::plan(vpr_msgs::PlanTrajectoriesRequest& req,moveit_msgs:
   std::string model_frame = start_state->getRobotModel()->getModelFrame().c_str();
   for(std::size_t i = 0; i < req.trajectory_segments.size(); i++)
   {
-    std::vector<vpr_msgs::TrajectoryWaypoint> waypoints = req.trajectory_segments[i].waypoints;
+    const std::vector<vpr_msgs::TrajectoryWaypoint>& waypoints = req.trajectory_segments[i].waypoints;
     if(waypoints.empty())
     {
       continue;
     }
+
+    ROS_INFO("Segment has %lu waypoints", waypoints.size());
 
     // checking reference frame
     if(ref_link != waypoints.front().tool_pose.header.frame_id)

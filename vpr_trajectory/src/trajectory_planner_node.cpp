@@ -5,8 +5,12 @@
  *      Author: ros-industrial
  */
 #include <ros/ros.h>
-#include <vpr_msgs/PlanTrajectories.h>
+
 #include <moveit/robot_model_loader/robot_model_loader.h>
+
+#include <vpr_msgs/PlanTrajectories.h>
+
+#include "vpr_trajectory/mtc_planner.h"
 #include "vpr_trajectory/trajectory_planner.h"
 
 static const std::string PLAN_TRAJECTORIES_SERVICE = "plan_trajectories";
@@ -15,12 +19,17 @@ using namespace vpr_trajectory;
 using namespace vpr_msgs;
 using SrvCallback = std::function<bool (vpr_msgs::PlanTrajectoriesRequest& req, vpr_msgs::PlanTrajectoriesResponse& res)>;
 
-bool planTrajectoryCallback(const TrajectoryPlanner& planner,vpr_msgs::PlanTrajectoriesRequest& req,
+
+template <class P>
+bool planTrajectoryCallback(const P& planner,vpr_msgs::PlanTrajectoriesRequest& req,
                             vpr_msgs::PlanTrajectoriesResponse& res)
 {
   res.success = planner.plan(req,res.robot_trajectories);
   return true;
 }
+
+//using PlannerType = vpr_trajectory::TrajectoryPlanner;
+using PlannerType = vpr_trajectory::MTCPlanner;
 
 int main(int argc, char** argv)
 {
@@ -40,10 +49,10 @@ int main(int argc, char** argv)
     return -1;
   }
 
-  TrajectoryPlanner traj_planner(robot_model);
+  PlannerType task_planner(robot_model);
 
   // setting up service server
-  SrvCallback srv_cb = std::bind(planTrajectoryCallback,std::ref(traj_planner),
+  SrvCallback srv_cb = std::bind(planTrajectoryCallback<PlannerType>,std::ref(task_planner),
                                  std::placeholders::_1,std::placeholders::_2);
   ros::ServiceServer planning_srv = nh.advertiseService<PlanTrajectoriesRequest,PlanTrajectoriesResponse>(
       PLAN_TRAJECTORIES_SERVICE,srv_cb);

@@ -11,8 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   eigen_conversions  
   moveit_core
   moveit_ros_planning_interface
+  moveit_task_constructor_core
   vpr_msgs
   tf2
+  tf2_eigen
 )
 
 ###################################
@@ -35,6 +37,8 @@ include_directories(
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
+  src/stages/plan_toolpath.cpp
+  src/mtc_planner.cpp
   src/trajectory_planner.cpp
 )
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
