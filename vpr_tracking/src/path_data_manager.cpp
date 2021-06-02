@@ -606,11 +606,9 @@ bool PathDataManager::addWaypoint()
   }
   else
   {
-    if(traj_segments_buffer_.back().recording_mode != RecordingModes::WAYPOINT)
-    {
-      TrajectorySegmentInfo ti = {.segment = vpr_msgs::TrajectorySegment(),.recording_mode = RecordingModes::WAYPOINT};
-      traj_segments_buffer_.push_back(ti);
-    }
+	// adding new segment per waypoint
+    TrajectorySegmentInfo ti = {.segment = vpr_msgs::TrajectorySegment(),.recording_mode = RecordingModes::WAYPOINT};
+    traj_segments_buffer_.push_back(ti);
   }
 
   auto get_waypoint_threadsafe = [this]() -> boost::optional<vpr_msgs::TrajectoryWaypoint>

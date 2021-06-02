@@ -3,6 +3,8 @@
 
   <arg name="use_joystick" default="True"/>
   <arg name="joystick_dev" default="/dev/input/js0" if="$(arg use_joystick)"/>
+  
+  <node name="trajectory_planner" type="trajectory_planner_node" pkg="vpr_trajectory" output="screen"/>
 
   <group unless="$(arg use_joystick)">
     <node name="keyboard_publisher" type="keyboard_publisher.py" pkg="vpr_tracking"/>

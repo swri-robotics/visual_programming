@@ -26,7 +26,7 @@ static std::shared_ptr<mtc::solvers::PipelinePlanner>  createFreeSpacePlanner()
   freespace_planner->setProperty("goal_joint_tolerance", 0.01);
   freespace_planner->setProperty("goal_position_tolerance", 0.005);
   freespace_planner->setProperty("goal_orientation_tolerance", 0.01);
-  freespace_planner->setProperty("num_planning_attempts", 4);
+  freespace_planner->setProperty("num_planning_attempts", static_cast<uint>(4));
   freespace_planner->setProperty("max_velocity_scaling_factor", 0.5);
   freespace_planner->setProperty("max_acceleration_scaling_factor", 0.5);
   return freespace_planner;
