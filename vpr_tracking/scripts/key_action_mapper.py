@@ -21,9 +21,9 @@ COMMAND_OVERLAY_TXT_TOPIC = 'application_commands'
 MARKER_STRING_LINE_WIDTH = 30
 
 class KeyActions(Enum):    
-    UP = '8'
-    DOWN = '2'
-    ACCEPT = '0'
+    UP = 'q'
+    DOWN = 'z'
+    ACCEPT = 'a'
 
 class Mode(Enum):
     
