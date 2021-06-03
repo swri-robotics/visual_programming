@@ -31,6 +31,7 @@ class TextWindow():
 
     def read_key(self):
         keycode = self._screen.getch()
+              
         return keycode if keycode != -1 else None
 
     def clear(self):
@@ -48,7 +49,10 @@ class TextWindow():
             y += 1
 
     def refresh(self):
+        #print('\r')
+        #self._screen.addstr('\r')
         self._screen.refresh()
+        self._screen.move(0, 0)
 
     def beep(self):
         curses.flash()
@@ -67,9 +71,9 @@ class SimpleKeyboardPublisher():
         while not rospy.is_shutdown():
             keycode = self._interface.read_key()  
             
-            print('key pressed %s'%(keycode))          
-            self._interface.clear()
+            #print('key pressed %s'%(keycode))          
             self._interface.refresh()
+            self._interface.clear()
             
             msg = String()
             if keycode is not None:
