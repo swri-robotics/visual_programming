@@ -68,7 +68,7 @@ void PlanToolpath::computeForward(const moveit::task_constructor::InterfaceState
   using namespace moveit::task_constructor;
   using namespace moveit::core;
 
-
+  // reading all the properties
   PropertyMap& props = properties();
   auto robot_model = from.scene()->getRobotModel();
   const std::string group_name = props.get<std::string>("group_name");
@@ -84,7 +84,6 @@ void PlanToolpath::computeForward(const moveit::task_constructor::InterfaceState
 
   // planning scenes and interface states
   planning_scene::PlanningScenePtr start_scene = from.scene()->diff();
-  planning_scene::PlanningScenePtr start_toolpath_scene = from.scene()->diff();
 
   // callback to check for collisions
   auto is_valid_cb = [&from, &start_scene](moveit::core::RobotState* state, const moveit::core::JointModelGroup* jmg,

@@ -50,7 +50,7 @@ static const double TF_LOOKUP_PERIOD = 0.005;
 static const double PATH_LINE_WIDTH = 0.01;
 static const double PATH_DOT_SIZE = 0.02;
 static const double IK_TIMEOUT = 0.005;
-static const double SERVICE_WAIT_PERIOD = 5.0f;
+static const double SERVICE_WAIT_PERIOD = 60.0f;
 static const int IK_ATTEMPTS = 2;
 using RGBA = std::tuple<double,double,double,double>;
 
@@ -416,8 +416,7 @@ PathDataManager::PathDataManager(ros::NodeHandle &nh, ros::NodeHandle &nhp) :
   traj_segments_buffer_.reserve(20);
 
   // create moveit interface
-  moveit_interface_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>(
-      move_group_name_);
+  moveit_interface_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>(move_group_name_);
   moveit_interface_->startStateMonitor();
 
   // subscribers, publishers and clients

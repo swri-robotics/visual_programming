@@ -34,7 +34,11 @@ class PathManagerExecutive
 public:
   PathManagerExecutive(ros::NodeHandle &nh, ros::NodeHandle &nhp)
   {
+    // waits for MoveIt
+    ros::Duration(5.0).sleep();
+
     path_manager_.reset(new PathDataManager(nh,nhp));
+
     // init ROS
     edit_path_srv_ = nh.advertiseService(EDIT_PATH_WAYPOINTS_SERVICE,&PathManagerExecutive::editPathWaypointsCallback,this);
     start_path_preview_srv_ = nh.advertiseService(START_PATH_PREVIEW_SERVICE,

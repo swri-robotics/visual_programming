@@ -27,11 +27,25 @@ public:
                const std::string& group_name);
   virtual ~PlanToolpath();
 
+  /**
+   * @brief handles initialization
+   */
   void init(const moveit::core::RobotModelConstPtr& robot_model) override;
 
+  /**
+   * @brief main planning method
+   */
   void computeForward(const moveit::task_constructor::InterfaceState& from) override;
+
+  /**
+   * @brief used when planning in reverse, not needed by this application
+   */
   void computeBackward(const moveit::task_constructor::InterfaceState& to) override;
 
+  /**
+   * @brief convenience method to set the toolpath
+   * @param toolpath
+   */
   void setToolpath(const EigenSTL::vector_Isometry3d& toolpath);
 
 };

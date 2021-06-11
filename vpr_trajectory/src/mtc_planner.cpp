@@ -60,9 +60,12 @@ bool MTCPlanner::plan(const vpr_msgs::PlanTrajectoriesRequest &req,
   // instantiating task
   TaskPtr task = std::make_shared<Task>("vpr_task", true, std::make_unique<SerialContainer>("planning_stages"));
   task->loadRobotModel();
+  task->enableIntrospection(true); // allows publishing to rviz
 
-  // getting start state stage
+  // create start state stage
   StageUniquePtr start_st_stage = createFixedStateStage(req.start_state);
+
+  // add stage to task
   task->stages()->insert(std::move(start_st_stage));
 
   // looping through each trajectory segment
@@ -70,6 +73,8 @@ bool MTCPlanner::plan(const vpr_msgs::PlanTrajectoriesRequest &req,
   {
     const auto& segment = req.trajectory_segments[i];
     std::string stage_id = "segment_" + std::to_string(i+1);
+
+    // create the corresponding stage
     StageUniquePtr stage = nullptr;
     if(segment.waypoints.size() == 1) // handle single waypoint case
     {
@@ -91,12 +96,15 @@ bool MTCPlanner::plan(const vpr_msgs::PlanTrajectoriesRequest &req,
     {
       return false;
     }
+
+    // insert stage into task
     task->stages()->insert(std::move(stage));
   }
 
   // now plan task
-  task->enableIntrospection(true);
   bool success = task->plan();
+
+  // publish visualization
   try
   {
     task->publishAllSolutions(false);
@@ -138,6 +146,7 @@ bool MTCPlanner::plan(const vpr_msgs::PlanTrajectoriesRequest &req,
 std::unique_ptr<moveit::task_constructor::stages::MoveTo> MTCPlanner::createFreeSpacePlanStage(
     const std::string& stage_id,const std::string& group_name,const vpr_msgs::TrajectoryWaypoint& wp) const
 {
+  // create Pipeline planner
   std::shared_ptr<mtc::solvers::PipelinePlanner> freespace_planner = createFreeSpacePlanner();
 
   std::unique_ptr<mtc::stages::MoveTo> planner_stage = std::make_unique<mtc::stages::MoveTo>(stage_id,
@@ -147,9 +156,9 @@ std::unique_ptr<moveit::task_constructor::stages::MoveTo> MTCPlanner::createFree
   planner_stage->setGroup(group_name);
   planner_stage->setTimeout(DEFAULT_TIMEOUT);
   const moveit::core::LinkModel* tcp_link = jmg->getLinkModels().back();
-  ROS_WARN("Freespace planning stage Using tcp link %s", tcp_link->getName().c_str());
-
   planner_stage->setIKFrame(tcp_link->getName());
+
+  // set the goal
   planner_stage->setGoal(wp.tool_pose);
 
   return planner_stage;
@@ -163,16 +172,17 @@ std::unique_ptr<vpr_trajectory::stages::PlanToolpath> MTCPlanner::createToolpath
   using namespace vpr_trajectory::stages;
   using namespace moveit::core;
 
+  // create a plan toolpath stage
   std::unique_ptr<PlanToolpath> plan_toolpath_stage = std::make_unique<PlanToolpath>(stage_id,
                                                                                      group_name);
 
-  // preparing planning configuration
+  // set properties
   JumpThreshold jump_threshold = JumpThreshold{properties.jump_threshold_revolute, properties.jump_threshold_prismatic};
   MaxEEFStep eef_step = {.translation = properties.max_eef_step_translation, .rotation = properties.max_eef_step_rotation};
-
   plan_toolpath_stage->setProperty("jump_threshold", jump_threshold);
   plan_toolpath_stage->setProperty("eef_step", eef_step);
 
+  // get transform
   boost::optional<Eigen::Isometry3d> model_to_ref_transform = boost::none;
   std::string model_frame = robot_model_->getModelFrame().c_str();
   std::string ref_link = segment.waypoints.front().tool_pose.header.frame_id;
@@ -186,7 +196,7 @@ std::unique_ptr<vpr_trajectory::stages::PlanToolpath> MTCPlanner::createToolpath
   ROS_WARN_COND(model_to_ref_transform.is_initialized(),"Grabbed transform from '%s' to '%s' using TF",
                 model_frame.c_str(),ref_link.c_str());
 
-  // creating toolpath
+  // creating the toolpath
   EigenSTL::vector_Isometry3d toolpath;
   const auto& waypoints = segment.waypoints;
   std::transform(waypoints.cbegin(), waypoints.cend(), std::back_inserter(toolpath),[&model_to_ref_transform](
@@ -196,7 +206,9 @@ std::unique_ptr<vpr_trajectory::stages::PlanToolpath> MTCPlanner::createToolpath
     return model_to_ref_transform.get() * waypoint;
   });
 
+  // Pass the toolpath to the stage
   plan_toolpath_stage->setToolpath(toolpath);
+
   return plan_toolpath_stage;
 }
 
